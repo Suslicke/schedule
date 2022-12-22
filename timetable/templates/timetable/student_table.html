@@ -1,0 +1,478 @@
+{% extends 'timetable/base.html' %}
+
+
+{% load i18n %}
+{% load static %}
+{% load templatetag %}
+
+{% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="{% static 'css/table1.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <script>
+        function mfFunction(event) {
+            var x = event.target.parentNode.nextElementSibling.childNodes;
+            for (let item of x) {
+                if (item.classList) {
+                    if (item.classList.item(0) == "content") {
+                        item.style.display = ((item.style.display == 'table-cell') ? 'none' : 'table-cell');
+                    }
+                }
+            }
+        }
+    </script>
+    <div class="dropdown">
+        <button onclick="myFunctionButton()" class="dropbtn">Не ваша группа?</button>
+        <div id="myDropdown" class="dropdown-content">
+            {% for group in groups %}
+            <a href="/shedule/group/{{ group }}/current">{{ group }}</a>
+            {% endfor %}
+            <script>
+                /* When the user clicks on the button,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                function myFunctionButton() {
+                    document.getElementById("myDropdown").classList.toggle("show");
+                }
+
+                // Close the dropdown menu if the user clicks outside of it
+                window.onclick = function(event) {
+                    if (!event.target.matches('.dropbtn')) {
+
+                        var dropdowns = document.getElementsByClassName("dropdown-content");
+                        var i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                            var openDropdown = dropdowns[i];
+                            if (openDropdown.classList.contains('show')) {
+                                openDropdown.classList.remove('show');
+                            }
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="dropdown1">
+        <button onclick="myFunctionButton1()" class="dropbtn1">Выберите дату понедельника</button>
+        <div id="myDropdown1" class="dropdown-content1">
+            {% for date in dates %}
+            <a href="{{ date }}">{{ date }}</a>
+            {% endfor %}
+            <script>
+                /* When the user clicks on the button,
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                function myFunctionButton1() {
+                    document.getElementById("myDropdown1").classList.toggle("show1");
+                }
+
+                // Close the dropdown menu if the user clicks outside of it
+                window.onclick = function(event) {
+                    if (!event.target.matches('.dropbtn1')) {
+
+                        var dropdowns = document.getElementsByClassName("dropdown-content1");
+                        var i;
+                        for (i = 0; i < dropdowns.length; i++) {
+                            var openDropdown = dropdowns[i];
+                            if (openDropdown.classList.contains('show1')) {
+                                openDropdown.classList.remove('show1');
+                            }
+                        }
+                    }
+                }
+            </script>
+        </div>
+    </div>
+    
+    <div class="Group">
+        <p>{{ group_name }}</p>
+    </div>
+
+    <div class="Raspisanie">
+        <table class="Monday">
+            <caption>Понедельник / {{ date.0|get_current_monday }}</caption>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Группа</th>
+                    <th>Кабинет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>1</td>
+                    <td>{{ timetable|student_day:"Понедельник_1Пара1_Название"}} {{ timetable|student_day:"Понедельник_1Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Понедельник_1Пара1_Кабинет"}} {{ timetable|student_day:"Понедельник_1Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">8.30<br>9.50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Понедельник_1Пара1_Преподаватель" }} {{ timetable|student_day:"Понедельник_1Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>2</td>
+                    <td>{{ timetable|student_day:"Понедельник_2Пара1_Название"}} {{ timetable|student_day:"Понедельник_2Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Понедельник_2Пара1_Кабинет"}} {{ timetable|student_day:"Понедельник_2Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">10:00<br>11:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Понедельник_2Пара1_Преподаватель" }} {{ timetable|student_day:"Понедельник_2Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>3</td>
+                    <td>{{ timetable|student_day:"Понедельник_3Пара1_Название"}} {{ timetable|student_day:"Понедельник_3Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Понедельник_3Пара1_Кабинет"}} {{ timetable|student_day:"Понедельник_3Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">11:40<br>13:00</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Понедельник_3Пара1_Преподаватель" }} {{ timetable|student_day:"Понедельник_3Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>4</td>
+                    <td>{{ timetable|student_day:"Понедельник_4Пара1_Название"}} {{ timetable|student_day:"Понедельник_4Пара2_Название"}} </td>
+                    <td>{{ timetable|student_day:"Понедельник_4Пара1_Кабинет"}} {{ timetable|student_day:"Понедельник_4Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">13:30<br>14:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Понедельник_4Пара1_Преподаватель" }} {{ timetable|student_day:"Понедельник_4Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>5</td>
+                    <td>{{ timetable|student_day:"Понедельник_5Пара1_Название"}} {{ timetable|student_day:"Понедельник_5Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Понедельник_5Пара1_Кабинет"}} {{ timetable|student_day:"Понедельник_5Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">15:00<br>16:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Понедельник_5Пара1_Преподаватель" }} {{ timetable|student_day:"Понедельник_5Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>6</td>
+                    <td>{{ timetable|student_day:"Понедельник_6Пара1_Название"}} {{ timetable|student_day:"Понедельник_6Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Понедельник_6Пара1_Кабинет"}} {{ timetable|student_day:"Понедельник_6Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">16:30<br>17:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Понедельник_6Пара1_Преподаватель" }} {{ timetable|student_day:"Понедельник_6Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="Tuesday">
+            <caption>Вторник / {{ date.1 }}</caption>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Группа</th>
+                    <th>Кабинет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>1</td>
+                    <td>{{ timetable|student_day:"Вторник_1Пара1_Название"}} {{ timetable|student_day:"Вторник_1Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Вторник_1Пара1_Кабинет"}} {{ timetable|student_day:"Вторник_1Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">8.30<br>9.50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Вторник_1Пара1_Преподаватель" }} {{ timetable|student_day:"Вторник_1Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>2</td>
+                    <td>{{ timetable|student_day:"Вторник_2Пара1_Название"}} {{ timetable|student_day:"Вторник_2Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Вторник_2Пара1_Кабинет"}} {{ timetable|student_day:"Вторник_2Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">10:00<br>11:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Вторник_2Пара1_Преподаватель" }} {{ timetable|student_day:"Вторник_2Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>3</td>
+                    <td>{{ timetable|student_day:"Вторник_3Пара1_Название"}} {{ timetable|student_day:"Вторник_3Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Вторник_3Пара1_Кабинет"}} {{ timetable|student_day:"Вторник_3Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">11:40<br>13:00</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Вторник_3Пара1_Преподаватель" }} {{ timetable|student_day:"Вторник_3Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>4</td>
+                    <td>{{ timetable|student_day:"Вторник_4Пара1_Название"}} {{ timetable|student_day:"Вторник_4Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Вторник_4Пара1_Кабинет"}} {{ timetable|student_day:"Вторник_4Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">13:30<br>14:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Вторник_4Пара1_Преподаватель" }} {{ timetable|student_day:"Вторник_4Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>5</td>
+                    <td>{{ timetable|student_day:"Вторник_5Пара1_Название"}} {{ timetable|student_day:"Вторник_5Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Вторник_5Пара1_Кабинет"}} {{ timetable|student_day:"Вторник_5Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">15:00<br>16:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Вторник_5Пара1_Преподаватель" }} {{ timetable|student_day:"Вторник_5Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>6</td>
+                    <td>{{ timetable|student_day:"Вторник_6Пара1_Название"}} {{ timetable|student_day:"Вторник_6Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Вторник_6Пара1_Кабинет"}} {{ timetable|student_day:"Вторник_6Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">16:30<br>17:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Вторник_6Пара1_Преподаватель" }} {{ timetable|student_day:"Вторник_6Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="Wednesday">
+            <caption>Среда / {{ date.2 }}</caption>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Группа</th>
+                    <th>Кабинет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>1</td>
+                    <td>{{ timetable|student_day:"Среда_1Пара1_Название"}} {{ timetable|student_day:"Среда_1Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Среда_1Пара1_Кабинет"}} {{ timetable|student_day:"Среда_1Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">8.30<br>9.50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Среда_1Пара1_Преподаватель" }} {{ timetable|student_day:"Среда_1Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>2</td>
+                    <td>{{ timetable|student_day:"Среда_2Пара1_Название"}} {{ timetable|student_day:"Среда_2Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Среда_2Пара1_Кабинет"}} {{ timetable|student_day:"Среда_2Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">10:00<br>11:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Среда_2Пара1_Преподаватель" }} {{ timetable|student_day:"Среда_2Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>3</td>
+                    <td>{{ timetable|student_day:"Среда_3Пара1_Название"}} {{ timetable|student_day:"Среда_3Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Среда_3Пара1_Кабинет"}} {{ timetable|student_day:"Среда_3Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">11:40<br>13:00</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Среда_3Пара1_Преподаватель" }} {{ timetable|student_day:"Среда_3Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>4</td>
+                    <td>{{ timetable|student_day:"Среда_4Пара1_Название"}} {{ timetable|student_day:"Среда_4Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Среда_4Пара1_Кабинет"}} {{ timetable|student_day:"Среда_4Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">13:30<br>14:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Среда_4Пара1_Преподаватель" }} {{ timetable|student_day:"Среда_4Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>5</td>
+                    <td>{{ timetable|student_day:"Среда_5Пара1_Название"}} {{ timetable|student_day:"Среда_5Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Среда_5Пара1_Кабинет"}} {{ timetable|student_day:"Среда_5Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">15:00<br>16:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Среда_5Пара1_Преподаватель" }} {{ timetable|student_day:"Среда_5Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>6</td>
+                    <td>{{ timetable|student_day:"Среда_6Пара1_Название"}} {{ timetable|student_day:"Среда_6Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Среда_6Пара1_Кабинет"}} {{ timetable|student_day:"Среда_6Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">16:30<br>17:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Среда_6Пара1_Преподаватель" }} {{ timetable|student_day:"Среда_6Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="Thursday">
+            <caption>Четверг {{ date.3 }}</caption>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Группа</th>
+                    <th>Кабинет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>1</td>
+                    <td>{{ timetable|student_day:"Четверг_1Пара1_Название"}} {{ timetable|student_day:"Четверг_1Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Четверг_1Пара1_Кабинет"}} {{ timetable|student_day:"Четверг_1Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">8.30<br>9.50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Четверг_1Пара1_Преподаватель" }} {{ timetable|student_day:"Четверг_1Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>2</td>
+                    <td>{{ timetable|student_day:"Четверг_2Пара1_Название"}} {{ timetable|student_day:"Четверг_2Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Четверг_2Пара1_Кабинет"}} {{ timetable|student_day:"Четверг_2Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">10:00<br>11:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Четверг_2Пара1_Преподаватель" }} {{ timetable|student_day:"Четверг_2Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>3</td>
+                    <td>{{ timetable|student_day:"Четверг_3Пара1_Название"}} {{ timetable|student_day:"Четверг_3Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Четверг_3Пара1_Кабинет"}} {{ timetable|student_day:"Четверг_3Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">11:40<br>13:00</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Четверг_3Пара1_Преподаватель" }} {{ timetable|student_day:"Четверг_3Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>4</td>
+                    <td>{{ timetable|student_day:"Четверг_4Пара1_Название"}} {{ timetable|student_day:"Четверг_4Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Четверг_4Пара1_Кабинет"}} {{ timetable|student_day:"Четверг_4Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">13:30<br>14:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Четверг_4Пара1_Преподаватель" }} {{ timetable|student_day:"Четверг_4Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>5</td>
+                    <td>{{ timetable|student_day:"Четверг_5Пара1_Название"}} {{ timetable|student_day:"Четверг_5Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Четверг_5Пара1_Кабинет"}} {{ timetable|student_day:"Четверг_5Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">15:00<br>16:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Четверг_5Пара1_Преподаватель" }} {{ timetable|student_day:"Четверг_5Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>6</td>
+                    <td>{{ timetable|student_day:"Четверг_6Пара1_Название"}} {{ timetable|student_day:"Четверг_6Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Четверг_6Пара1_Кабинет"}} {{ timetable|student_day:"Четверг_6Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">16:30<br>17:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Четверг_6Пара1_Преподаватель" }} {{ timetable|student_day:"Четверг_6Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="Friday">
+            <caption>Пятница / {{ date.4 }}</caption>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Группа</th>
+                    <th>Кабинет</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>1</td>
+                    <td>{{ timetable|student_day:"Пятница_1Пара1_Название"}} {{ timetable|student_day:"Пятница_1Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Пятница_1Пара1_Кабинет"}} {{ timetable|student_day:"Пятница_1Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">8.30<br>9.50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Пятница_1Пара1_Преподаватель" }} {{ timetable|student_day:"Пятница_1Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>2</td>
+                    <td>{{ timetable|student_day:"Пятница_2Пара1_Название"}} {{ timetable|student_day:"Пятница_2Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Пятница_2Пара1_Кабинет"}} {{ timetable|student_day:"Пятница_2Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">10:00<br>11:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Пятница_2Пара1_Преподаватель" }} {{ timetable|student_day:"Пятница_2Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>3</td>
+                    <td>{{ timetable|student_day:"Пятница_3Пара1_Название"}} {{ timetable|student_day:"Пятница_3Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Пятница_3Пара1_Кабинет"}} {{ timetable|student_day:"Пятница_3Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">11:40<br>13:00</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Пятница_3Пара1_Преподаватель" }} {{ timetable|student_day:"Пятница_3Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>4</td>
+                    <td>{{ timetable|student_day:"Пятница_4Пара1_Название"}} {{ timetable|student_day:"Пятница_4Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Пятница_4Пара1_Кабинет"}} {{ timetable|student_day:"Пятница_4Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">13:30<br>14:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Пятница_4Пара1_Преподаватель" }} {{ timetable|student_day:"Пятница_4Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>5</td>
+                    <td>{{ timetable|student_day:"Пятница_5Пара1_Название"}} {{ timetable|student_day:"Пятница_5Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Пятница_5Пара1_Кабинет"}} {{ timetable|student_day:"Пятница_5Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">15:00<br>16:20</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Пятница_5Пара1_Преподаватель" }} {{ timetable|student_day:"Пятница_5Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+                <tr onclick="mfFunction(event)" class="input" id="input">
+                    <td>6</td>
+                    <td>{{ timetable|student_day:"Пятница_6Пара1_Название"}} {{ timetable|student_day:"Пятница_6Пара2_Название"}}</td>
+                    <td>{{ timetable|student_day:"Пятница_6Пара1_Кабинет"}} {{ timetable|student_day:"Пятница_6Пара2_Кабинет"}}</td>
+                </tr>
+                <tr>
+                    <td class="content" id="content">16:30<br>17:50</td>
+                    <td class="content" id="content">Преподаватели: {{ timetable|student_day:"Пятница_6Пара1_Преподаватель" }} {{ timetable|student_day:"Пятница_6Пара2_Преподаватель" }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="SuslickeTEAM" id="SuslickeTEAM">
+        <ul>
+            <a href="https://github.com/SuslickeTEAM" target="_blank">
+                <li>SuslickeTEAM</li>
+            </a>
+        </ul>
+    </div>
+</div>
+<div class="back-main-page">
+    <ul>
+        <a href="/#SuslickeTEAM">
+            <li>Вернуться назад</li>
+        </a>
+    </ul>
+</div>
+{% endblock %}
+
+</html>
